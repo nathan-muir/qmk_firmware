@@ -24,6 +24,8 @@ enum planck_layers {
   _COLEMAK,
   _LOWER,
   _RAISE,
+  _GAME,
+  _GAMEALT,
   _ADJUST,
   _MODLEFT,
   _MODRIGHT
@@ -114,11 +116,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
+/* GAME
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |  F1  |   W  |  F2  |  F3  |  F4  |   \  |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   D  |  F5  |   [  |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   ]  |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Brite| Ctrl | Alt  | GUI  |Lower | ENTER|Space |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAME] = LAYOUT_planck_grid(
+     KC_F1,   KC_F2,   KC_W,  KC_F3,  KC_F4,  KC_BSLS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  TO(_COLEMAK),
+    KC_TAB,    KC_A,   KC_S,   KC_D,  KC_F5,  KC_LBRC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  MO(_COLEMAK),
+    KC_LALT,  KC_F7,  KC_F8,  KC_F9,  KC_F6,  KC_RBRC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    KC_LCTL, KC_F10, KC_F11, KC_F12,MO(_GAMEALT),KC_SPC,KC_ENT, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_ESC
+),
+/* GAMEALT
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |  F1  |   W  |  F2  |  F3  |  F4  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   D  |  F5  |   [  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   ]  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAMEALT] = LAYOUT_planck_grid(
+       KC_1,   KC_2, _______,    KC_3,   KC_4, KC_BSLS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    _______,_______, _______, _______,   KC_5, KC_LBRC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    _______,   KC_7,    KC_8,    KC_9,   KC_6, KC_RBRC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    _______,   KC_0, KC_MINS, KC_PLUS,  KC_NO, _______, KC_SPC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
+),
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|      |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk| Game |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -127,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid(
     _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  _______, _______, _______,
+    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,TO(_GAME), _______, _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 ),
